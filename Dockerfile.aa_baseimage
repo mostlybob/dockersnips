@@ -1,0 +1,2 @@
+FROM busybox
+MAINTAINER Bob Campbell mostlybob@gmail.com
