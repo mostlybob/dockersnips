@@ -42,7 +42,7 @@ After building the file, presumably with a tag for easy reference, I run it with
 $ docker run -dit <TAG> | <IMAGE ID>
 ```
 
-The `-dit` switch, which you can look up by issuing `docker help run`, means, inorder, detached, interactive, use a pseudo or virtual tty. That last one allows you to attach to the running container and see your handiwork.
+The `-dit` switch, which you can look up by issuing `docker help run`, means, in order, detached, interactive, use a pseudo or virtual tty. That last one allows you to attach to the running container and see your handiwork.
 
 Using my previous example, I issued the following command, with this response:
 
