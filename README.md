@@ -83,7 +83,7 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 
 Attaching to a running container allows you to, in a sense, `ssh` into the container and interact with the running instance. This is another area where I've had mixed results. In some other tutorial projects, I found this method would not attach to the container. My bet is that it has to do with the running process. For the purposes of this document, I intentionally created a simple container that's running `sh`, so I can easily attach to it. This one of those areas that will probably develop as my experience with Docker grows.
 
-> As with all `docker` commands the help for the command can be viewed with `docker help <command>`. As with a lot of these styled help messages, they're more pointers for further reference or a shorthand reminder for the more experienced among us.
+> As with all `docker` commands the help for the command can be viewed with `docker help <command>`. Like a lot of these styled help messages, they're more pointers for further reference or shorthand reminders for the more experienced among us.
 
 Issue the command:
 
