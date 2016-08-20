@@ -7,5 +7,5 @@ In poking around for decent pages on building Docker images, I came across [this
 
 -----
 
-[1]: [https://docs.google.com/document/d/1f8iflnFSZxAU9FhoLQPEVlSKhVPXbtCaqTVPTTJb9yo/edit#heading=h.py35px4li4o2]
+[1]: https://docs.google.com/document/d/1f8iflnFSZxAU9FhoLQPEVlSKhVPXbtCaqTVPTTJb9yo/edit#heading=h.py35px4li4o2
 
