@@ -30,7 +30,7 @@ Step 2 : MAINTAINER Bob Campbell mostlybob@gmail.com
 Successfully built da4b4fcd6b70
 ```
 
-The `-t <tagname>` switch is optional, but it's probably a good habit to have when your `docker images` command starts showing dozens(!) of images. I may need to brush up my housekeepingskills.
+The `-t <tagname>` switch is optional, but it's probably a good habit to have when your `docker images` command starts showing dozens(!) of images. I may need to brush up my housekeeping skills.
 
 -----
 
