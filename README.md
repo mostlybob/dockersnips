@@ -81,8 +81,83 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 939639d67215        mbbase              "sh"                6 seconds ago       Up 5 seconds                            evil_brown
 ```
 
+Attaching to a running container allows you to, in a sense, `ssh` into the container and interact with the running instance. This is another area where I've had mixed results. In some other tutorial projects, I found this method would not attach to the container. My bet is that it has to do with the running process. For the purposes of this document, I intentionally created a simple container that's running `sh`, so I can easily attach to it. This one of those areas that will probably develop as my experience with Docker grows.
+
+> As with all `docker` commands the help for the command can be viewed with `docker help <command>`. As with a lot of these styled help messages, they're more pointers for further reference or a shorthand reminder for the more experienced among us.
+
+Issue the command:
+
+```
+$ docker attach <NAME> | <IMAGE ID> 
+```
+
+Using my example above, I get this:
+
+```
+$ docker attach evil_brown 
+/ # 
+```
+
+That `/ #` is the command prompt running inside the container. The `#` indicates that within the container, you're running as root. By default, Docker container processes run with root privileges within the container. _(Actually, I'm not sure you can create a sub-root user to run inside the process. Probably, but I haven't seen or had that need yet.)_
+
+Let's take a look.
+
+```
+/ # ls
+bin   dev   etc   home  proc  root  sys   tmp   usr   var
+/ # pwd
+/
+```
+
+Running `top` shows a pretty spartan environment:
+
+```
+Mem: 5190120K used, 2678612K free, 569044K shrd, 8432K buff, 768016K cached
+CPU:  1.2% usr  0.4% sys  0.0% nic 97.5% idle  0.8% io  0.0% irq  0.0% sirq
+Load average: 0.27 1.98 1.51 2/951 8
+  PID  PPID USER     STAT   VSZ %VSZ CPU %CPU COMMAND
+    1     0 root     S     1196  0.0   2  0.0 sh
+    8     1 root     R     1188  0.0   2  0.0 top
+```
+
+Getting out of the interactive session is one area where I've had to be careful. Normally when running a root session, I would type `exit` to get out, but see what happens:
+
+```
+/ # exit
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+```
+
+What happened to the container? I learned the hard way that `exit` actually kills the container. Start it back up and let's do it properly:
+
+```
+$ docker run -dit mbbase
+4c37602a8b3e85039a26f5af4a704b38fd9b20a46c8e820f8635b34fec7c2f71
+
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+4c37602a8b3e        mbbase              "sh"                4 seconds ago       Up 3 seconds                            berserk_knuth
+
+$ docker attach berserk_knuth 
+
+/ # ls
+bin   dev   etc   home  proc  root  sys   tmp   usr   var
+
+/ # 
+
+/ # $ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+4c37602a8b3e        mbbase              "sh"                3 minutes ago       Up 3 minutes                            berserk_knuth
+
+$
+```
+
+Wait, what? Yeah, me too.
+
+I found a handy [SO post][2] which says that, from within the running container (our `/ #` prompt) issue the command `Ctrl-p Ctrl-q` to drop out to the host prompt and leave the container running. Easy!
 
 -----
 
 [1]: https://docs.google.com/document/d/1f8iflnFSZxAU9FhoLQPEVlSKhVPXbtCaqTVPTTJb9yo/edit#heading=h.py35px4li4o2
+[2]: https://stackoverflow.com/questions/19688314/how-do-you-attach-and-detach-from-dockers-process
 
